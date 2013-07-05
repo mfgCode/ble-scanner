@@ -1,5 +1,5 @@
 # BLE-Scanner
-An easy to use ble-scanner (bluetooth smart / 4.0). Requires a Linux OS with bluez stack installed.
+An easy to use ble-scanner (bluetooth smart / 4.0) for node. Requires a Linux OS with bluez stack installed.
 
 ## Usage
 The ble-scanner is designed as a singleton class. Once required it can be used as follows.
