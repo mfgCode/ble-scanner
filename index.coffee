@@ -42,12 +42,12 @@ class BleScanner
 
         # dump results from scan
         clearHciDump.on "exit", (code) ->
-          console.log "cleared hcidump (#{code})"
+          console.log "HCIDUMP: cleared (code #{code})"
           hcidump = spawn 'hcidump',['-R']
 
           # exit handling
           hcidump.on "exit", (code) ->
-            console.log "hcidump exited (#{code}) ... killing instance"
+            console.log "HCIDUMP: exited (code #{code})"
             instance = undefined
 
           # Set listener for hcidump

@@ -38,10 +38,10 @@ BleScanner = (function() {
           });
         });
         return clearHciDump.on("exit", function(code) {
-          console.log("cleared hcidump (" + code + ")");
+          console.log("HCIDUMP: cleared (code " + code + ")");
           hcidump = spawn('hcidump', ['-R']);
           hcidump.on("exit", function(code) {
-            console.log("hcidump exited (" + code + ") ... killing instance");
+            console.log("HCIDUMP: exited (code " + code + ")");
             return instance = void 0;
           });
           return hcidump.stdout.on('data', function(data) {
