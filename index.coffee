@@ -56,7 +56,7 @@ class BleScanner
             # convert to ascii to have the original RAW
             data = (data.slice 2).toString('ascii').trim()
             # filter packet dumps only
-            console.log data
+            console.log data.split(" ")[0]
             if data.split(" ")[0] == ">"
               data = filterHciDump(data)
               callback(data)
