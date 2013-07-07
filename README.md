@@ -16,13 +16,13 @@ The ble-scanner is designed as a singleton class. It can be used as followed:
     # create new Scanner
     bleScanner = new Scanner(device,callback);
 
- The code above will result in every packet received to be logged to the console.
+The code above will result in every packet received to be logged to the console.
 
- ## Notes
+## Notes
 
- 1. The device is used to make sure the specific device is up. The scan is not device specific.
- 2. The callback is handed an array with hex-values as strings. Interpreting the packet is not done by ble-scanner.
+1. The device is used to make sure the specific device is up. The scan is not device specific.
+2. The callback is handed an array with hex-values as strings. Interpreting the packet is not done by ble-scanner.
 
- ## Known issues
+## Known issues
 
- 1. The first packet will always be invalid as this is the console output of hcidump. Validation packets needs to be done by the callback().
+1. The first packet will always be invalid as this is the console output of hcidump. Validation packets needs to be done by the callback().
