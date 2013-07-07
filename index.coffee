@@ -72,7 +72,7 @@ class BleScanner
     instance
   # Define helper to format BLE packet
 
-  filterHciDump = (data) ->
+  filterHciDump = (output) ->
     # strip line breaks from string
     output = output.replace(/(\r\n|\n|\r)/gm,"");
     # strip double spaces from string

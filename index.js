@@ -73,8 +73,7 @@ BleScanner = (function() {
 
   }
 
-  filterHciDump = function(data) {
-    var output;
+  filterHciDump = function(output) {
     output = output.replace(/(\r\n|\n|\r)/gm, "");
     output = output.replace(/\s+/g, "");
     return output = output.split(" ");
