@@ -1,6 +1,6 @@
 {
   "name": "ble-scanner",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Simple Bluetooth 4.0 LE scanner to receive advertisment packets utilizing bluez (*nix only).",
   "main": "index.js",
   "scripts": {

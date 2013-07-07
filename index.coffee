@@ -59,14 +59,14 @@ class BleScanner
   # Define helper to format BLE packet
 
   filterHciDump = (data) ->
-    # remove the first 5 bytes, they contain "> " from the dumptool
+    # remove the first 2 bytes, they contain "> " from the dumptool
     # convert to ascii to have the original RAW
-    output = (data.slice 5).toString('ascii')
+    output = (data.slice 2).toString('ascii').trim()
 
     # strip line breaks from string
     output = output.replace(/(\r\n|\n|\r)/gm,"");
     # strip double spaces from string
-    output.replace(/\s+/g," ")
+    output = output.replace(/\s+/g,"")
     # split into hex array
     output = output.split " "
 
