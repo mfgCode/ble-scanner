@@ -56,9 +56,11 @@ class BleScanner
             callback(data)
           )
   destroy : ->
-    hcidump.kill()
-    hcitool.kill()
-    instance = undefined
+    try
+      hcidump.kill()
+      hcitool.kill()
+    finally
+      instance = undefined
 
   constructor : (hcidev, callback) ->
     instance = init(hcidev, callback) unless instance
