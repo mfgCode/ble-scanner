@@ -52,8 +52,11 @@ class BleScanner
 
           # Set listener for hcidump
           hcidump.stdout.on('data', (data) ->
-            # filter out non packet dumps
-            if data.split(" ")[0] != ">"
+            # remove the first 2 bytes, they contain "> " from the dumptool
+            # convert to ascii to have the original RAW
+            data = (data.slice 2).toString('ascii').trim()
+            # filter packet dumps only
+            if data.split(" ")[0] == ">"
               data = filterHciDump(data)
               callback(data)
           )
@@ -70,10 +73,6 @@ class BleScanner
   # Define helper to format BLE packet
 
   filterHciDump = (data) ->
-    # remove the first 2 bytes, they contain "> " from the dumptool
-    # convert to ascii to have the original RAW
-    output = (data.slice 2).toString('ascii').trim()
-
     # strip line breaks from string
     output = output.replace(/(\r\n|\n|\r)/gm,"");
     # strip double spaces from string
