@@ -8,6 +8,12 @@ BleScanner = (function() {
 
   instance = void 0;
 
+  BleScanner.hciconfig;
+
+  BleScanner.hcidump;
+
+  BleScanner.hcitool;
+
   init = function(hcidev, callback) {
     this.hcidev = hcidev;
     this.hciconfig = spawn('hciconfig', [this.hcidev, 'up']);

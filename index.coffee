@@ -6,6 +6,9 @@ spawn = require('child_process').spawn
 class BleScanner
   # singleton instance
   instance = undefined
+  @hciconfig
+  @hcidump
+  @hcitool
   # The class must be constructed with a callback function
   # which will process all packets and it will be constructed
   # by creating all hooks to bluez
