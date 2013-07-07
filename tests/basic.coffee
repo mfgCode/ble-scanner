@@ -10,4 +10,4 @@ callback = (packet) ->
 bleScanner = new Scanner("hci0",callback);
 
 # terminate scan after 5 second
-setTimeout 5000, bleScanner.destroy
+setTimeout bleScanner.destroy, 5000

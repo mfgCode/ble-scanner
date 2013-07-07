@@ -9,4 +9,4 @@ callback = function(packet) {
 
 bleScanner = new Scanner("hci0", callback);
 
-setTimeout(5000, bleScanner.destroy);
+setTimeout(bleScanner.destroy, 5000);
