@@ -10,7 +10,6 @@ BleScanner = (function() {
 
   init = function(hcidev, callback) {
     this.hcidev = hcidev;
-    this.callback = callback;
     this.hciconfig = spawn('hciconfig', [this.hcidev, 'up']);
     this.hcidump = spawn('hcidump', ['-R']);
     return this.hciconfig.on("exit", function(code) {
@@ -41,7 +40,7 @@ BleScanner = (function() {
           });
           return this.hcidump.stdout.on('data', function(data) {
             data = filterHciDump(data);
-            return this.callback(data);
+            return callback(data);
           });
         });
       }

@@ -10,7 +10,7 @@ class BleScanner
   # which will process all packets and it will be constructed
   # by creating all hooks to bluez
   # callback - function, that receives one data parameter
-  init = (@hcidev, @callback) ->
+  init = (@hcidev, callback) ->
     # bring up hci device
     @hciconfig = spawn 'hciconfig', [@hcidev,'up']
     # dump results from scan
@@ -50,7 +50,7 @@ class BleScanner
           # Set listener for hcidump
           @hcidump.stdout.on('data', (data) ->
             data = filterHciDump(data)
-            @callback(data)
+            callback(data)
           )
 
   constructor : (hcidev, callback) ->
