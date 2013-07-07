@@ -46,6 +46,7 @@ BleScanner = (function() {
           });
           return hcidump.stdout.on('data', function(data) {
             data = (data.slice(2)).toString('ascii').trim();
+            console.log(data);
             if (data.split(" ")[0] === ">") {
               data = filterHciDump(data);
               return callback(data);
