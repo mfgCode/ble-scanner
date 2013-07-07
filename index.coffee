@@ -53,7 +53,7 @@ class BleScanner
           # Set listener for hcidump
           hcidump.stdout.on('data', (data) ->
             # filter out non packet dumps
-            if data[0] != ">"
+            if data.split(" ")[0] != ">"
               data = filterHciDump(data)
               callback(data)
           )
