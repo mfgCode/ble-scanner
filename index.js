@@ -47,6 +47,12 @@ BleScanner = (function() {
     });
   };
 
+  BleScanner.prototype.destroy = function() {
+    this.hcidump.kill();
+    this.hcitool.kill();
+    return instance = void 0;
+  };
+
   function BleScanner(hcidev, callback) {
     if (!instance) {
       instance = init(hcidev, callback);

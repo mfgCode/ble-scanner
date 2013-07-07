@@ -52,6 +52,10 @@ class BleScanner
             data = filterHciDump(data)
             callback(data)
           )
+  destroy : ->
+    @hcidump.kill()
+    @hcitool.kill()
+    instance = undefined
 
   constructor : (hcidev, callback) ->
     instance = init(hcidev, callback) unless instance
