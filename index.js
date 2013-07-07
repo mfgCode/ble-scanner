@@ -4,31 +4,31 @@ var BleScanner, spawn;
 spawn = require('child_process').spawn;
 
 BleScanner = (function() {
-  var filterHciDump, init, instance;
+  var filterHciDump, hciconfig, hcidump, hcitool, init, instance;
 
   instance = void 0;
 
-  BleScanner.hciconfig;
+  hciconfig = {};
 
-  BleScanner.hcidump;
+  hcidump = {};
 
-  BleScanner.hcitool;
+  hcitool = {};
 
   init = function(hcidev, callback) {
-    this.hcidev = hcidev;
-    this.hciconfig = spawn('hciconfig', [this.hcidev, 'up']);
-    this.hcidump = spawn('hcidump', ['-R']);
-    return this.hciconfig.on("exit", function(code) {
+    hciconfig = spawn('hciconfig', [hcidev, 'up']);
+    hcidump = spawn('hcidump', ['-R']);
+    return hciconfig.on("exit", function(code) {
+      var clearHciDump, clearHciTool;
       if (code !== 0) {
-        return console.log("HCICONFIG: failed to bring up device " + this.hcidev);
+        return console.log("HCICONFIG: failed to bring up device " + hcidev);
       } else {
-        console.log("HCICONFIG: succesfully brought up device " + this.hcidev);
-        this.clearHciDump = spawn("killall", ["hcidump"]);
-        this.clearHciTool = spawn("killall", ["hcitool"]);
-        this.clearHciTool.on("exit", function(code) {
+        console.log("HCICONFIG: succesfully brought up device " + hcidev);
+        clearHciDump = spawn("killall", ["hcidump"]);
+        clearHciTool = spawn("killall", ["hcitool"]);
+        clearHciTool.on("exit", function(code) {
           console.log("HCITOOL: cleared (code " + code + ")");
-          this.hcitool = spawn('hcitool', ['lescan']);
-          return this.hcitool.on("exit", function(code) {
+          hcitool = spawn('hcitool', ['lescan']);
+          return hcitool.on("exit", function(code) {
             if (code === 1) {
               return console.log("HCITOOL: exited, already running? (code 1)");
             } else {
@@ -37,14 +37,14 @@ BleScanner = (function() {
             }
           });
         });
-        return this.clearHciDump.on("exit", function(code) {
+        return clearHciDump.on("exit", function(code) {
           console.log("cleared hcidump (" + code + ")");
-          this.hcidump = spawn('hcidump', ['-R']);
-          this.hcidump.on("exit", function(code) {
+          hcidump = spawn('hcidump', ['-R']);
+          hcidump.on("exit", function(code) {
             console.log("hcidump exited (" + code + ") ... killing instance");
             return instance = void 0;
           });
-          return this.hcidump.stdout.on('data', function(data) {
+          return hcidump.stdout.on('data', function(data) {
             data = filterHciDump(data);
             return callback(data);
           });
@@ -54,8 +54,8 @@ BleScanner = (function() {
   };
 
   BleScanner.prototype.destroy = function() {
-    this.hcidump.kill();
-    this.hcitool.kill();
+    hcidump.kill();
+    hcitool.kill();
     return instance = void 0;
   };
 

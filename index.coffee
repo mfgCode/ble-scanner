@@ -6,34 +6,34 @@ spawn = require('child_process').spawn
 class BleScanner
   # singleton instance
   instance = undefined
-  @hciconfig
-  @hcidump
-  @hcitool
+  hciconfig = {}
+  hcidump = {}
+  hcitool = {}
   # The class must be constructed with a callback function
   # which will process all packets and it will be constructed
   # by creating all hooks to bluez
   # callback - function, that receives one data parameter
-  init = (@hcidev, callback) ->
+  init = (hcidev, callback) ->
     # bring up hci device
-    @hciconfig = spawn 'hciconfig', [@hcidev,'up']
+    hciconfig = spawn 'hciconfig', [hcidev,'up']
     # dump results from scan
-    @hcidump = spawn 'hcidump',['-R']
+    hcidump = spawn 'hcidump',['-R']
 
-    @hciconfig.on "exit", (code) ->
+    hciconfig.on "exit", (code) ->
       if code != 0
-        console.log "HCICONFIG: failed to bring up device "+@hcidev
+        console.log "HCICONFIG: failed to bring up device "+hcidev
       else
-        console.log "HCICONFIG: succesfully brought up device "+@hcidev
+        console.log "HCICONFIG: succesfully brought up device "+hcidev
         # clear hci-processes
-        @clearHciDump = spawn "killall", ["hcidump"]
-        @clearHciTool = spawn "killall", ["hcitool"]
+        clearHciDump = spawn "killall", ["hcidump"]
+        clearHciTool = spawn "killall", ["hcitool"]
 
         # reset singleton if tool exists
-        @clearHciTool.on "exit", (code) ->
+        clearHciTool.on "exit", (code) ->
           console.log "HCITOOL: cleared (code #{code})"
           # start le scan
-          @hcitool = spawn 'hcitool',['lescan']
-          @hcitool.on "exit", (code) ->
+          hcitool = spawn 'hcitool',['lescan']
+          hcitool.on "exit", (code) ->
             if code == 1
               console.log "HCITOOL: exited, already running? (code 1)"
             else
@@ -41,23 +41,23 @@ class BleScanner
               instance = undefined
 
         # dump results from scan
-        @clearHciDump.on "exit", (code) ->
+        clearHciDump.on "exit", (code) ->
           console.log "cleared hcidump (#{code})"
-          @hcidump = spawn 'hcidump',['-R']
+          hcidump = spawn 'hcidump',['-R']
 
           # exit handling
-          @hcidump.on "exit", (code) ->
+          hcidump.on "exit", (code) ->
             console.log "hcidump exited (#{code}) ... killing instance"
             instance = undefined
 
           # Set listener for hcidump
-          @hcidump.stdout.on('data', (data) ->
+          hcidump.stdout.on('data', (data) ->
             data = filterHciDump(data)
             callback(data)
           )
   destroy : ->
-    @hcidump.kill()
-    @hcitool.kill()
+    hcidump.kill()
+    hcitool.kill()
     instance = undefined
 
   constructor : (hcidev, callback) ->
