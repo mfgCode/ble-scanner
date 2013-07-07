@@ -45,8 +45,10 @@ BleScanner = (function() {
             return instance = void 0;
           });
           return hcidump.stdout.on('data', function(data) {
-            data = filterHciDump(data);
-            return callback(data);
+            if (data[0] !== ">") {
+              data = filterHciDump(data);
+              return callback(data);
+            }
           });
         });
       }

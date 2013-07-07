@@ -22,7 +22,3 @@ The code above will result in every packet received to be logged to the console.
 
 1. The device is used to make sure the specific device is up. The scan is not device specific.
 2. The callback is handed an array with hex-values as strings. Interpreting the packet is not done by ble-scanner.
-
-## Known issues
-
-1. The first packet will always be invalid as this is the console output of hcidump. Packet validation needs to be done by the callback().
