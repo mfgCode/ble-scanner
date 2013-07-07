@@ -25,4 +25,4 @@ The code above will result in every packet received to be logged to the console.
 
 ## Known issues
 
-1. The first packet will always be invalid as this is the console output of hcidump. Validation packets needs to be done by the callback().
+1. The first packet will always be invalid as this is the console output of hcidump. Packet validation needs to be done by the callback().
