@@ -76,7 +76,7 @@ class BleScanner
     # strip line breaks from string
     output = output.replace(/(\r\n|\n|\r)/gm,"");
     # strip double spaces from string
-    output = output.replace(/\s+/g,"")
+    output = output.replace(/\s+/g," ")
     # split into hex array
     output = output.split " "
 

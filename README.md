@@ -22,3 +22,7 @@ The code above will result in every packet received to be logged to the console.
 
 1. The device is used to make sure the specific device is up. The scan is not device specific.
 2. The callback is handed an array with hex-values as strings. Interpreting the packet is not done by ble-scanner.
+
+## Known issues
+
+1. HCITOOL does not terminate correctly.

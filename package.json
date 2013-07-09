@@ -1,12 +1,15 @@
 {
   "name": "ble-scanner",
-  "version": "0.2.0",
-  "description": "Simple Bluetooth 4.0 LE scanner to receive advertisment packets utilizing bluez (*nix only).",
+  "version": "0.2.2",
+  "description": "Bluetooth 4.0 LE scanner to receive advertisment packets utilizing bluez tools.",
   "main": "index.js",
   "scripts": {
     "test": "node tests/basic.js"
   },
-  "repository": "",
+  "repository": {
+      "type" : "git",
+      "url" : "https://github.com/mfgCode/ble-scanner.git"
+  },
   "keywords": [
     "ble",
     "bluetooth",
